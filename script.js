@@ -11,42 +11,66 @@ genres
 
 P.S. Функции вызывать не обязательно*/
 
+"use strict";
 
-
-
-
-'use strict';
-
-let numberOfFilms ;
+let numberOfFilms;
 
 function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+  numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "");
 
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
-    }
-
+  while (numberOfFilms == "" || numberOfFilms == null || isNaN(numberOfFilms)) {
+    numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "");
+  }
 }
 
 start();
 
-
-
-
-
 const personalMovieDB = {
-    count: numberOfFilms,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false
+  count: numberOfFilms,
+  movies: {},
+  actors: {},
+  genres: [],
+  privat: false,
 };
+function rememberMyFilms() {
+  for (let i = 0; i < 2; i++) {
+    const a = prompt("Один из последних просмотренных фильмов?", ""),
+      b = prompt("На сколько оцените его?", "");
 
-const a = prompt('Один из последних просмотренных фильмов?', ''),
-      b = prompt('На сколько оцените его?', ''),
-      c = prompt('Один из последних просмотренных фильмов?', ''),
-      d = prompt('На сколько оцените его?','');
+    if (a != null && b != null && a != "" && b != "" && a.length < 50) {
+      // если а и б не ноль и не пустая строка и меньше 50
+
+      personalMovieDB.movies[a] = b; // то данные  выводяться  дальше
+
+      console.log("done"); // и  в  консоль  тоже
+    } else {
+      //  но  если  не  так  то
+      console.log("error"); // в  консоль  сообщение  ошибка
+      i--; // знак  икремента  возвращаем  значение i   на  цикл  назад
+    }
+  }
+}
+
+rememberMyFilms();
+
+function detectPersonalLevel() {
+  if (personalMovieDB.count < 10) {
+    console.log("Просмотрено довольно мало фильмов");
+  } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+    console.log("Вы классический зритель");
+  } else if (personalMovieDB.count >= 30) {
+    console.log("Вы киноман");
+  } else {
+    console.log("Произошла ошибка");
+  }
+}
+
+detectPersonalLevel();
+
+const a = prompt("Один из последних просмотренных фильмов?", ""),
+  b = prompt("На сколько оцените его?", ""),
+  c = prompt("Один из последних просмотренных фильмов?", ""),
+  d = prompt("На сколько оцените его?", "");
 
 personalMovieDB.movies[a] = b;
 personalMovieDB.movies[c] = d;
